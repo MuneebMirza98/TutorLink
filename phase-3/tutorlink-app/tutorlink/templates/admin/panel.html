@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Admin Panel{% endblock %}
+
+
+{% block content %}
+    <div class="row justify-content-center my-5">
+        <div class="col col-12 col-lg-10 col-xl-11 rounded bg-white shadow-sm">
+            <h1 class="my-5 text-dark admin_panel">Users Management</h1>
+            <table class="table table-striped table-responsive-xl">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th colspan="2">Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.surname }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {{ user.role.name }}
+                            </td>
+                            <td>
+                                {% if user.admin %}
+                                    Administrator
+                                {% else %}
+                                    Not an Administrator
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.admin %}
+                                    <form action="{{ url_for('admin.revoke_admin', username=user.username) }}" method="post">
+                                        <button type="submit" class="btn btn-danger revoke-admin-btn">Revoke admin</button>
+                                    </form>
+                                {% else %}
+                                    <form action="{{ url_for('admin.grant_admin', username=user.username) }}" method="post">
+                                        <button type="submit" class="btn btn-success grant-admin-btn">Grant admin</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

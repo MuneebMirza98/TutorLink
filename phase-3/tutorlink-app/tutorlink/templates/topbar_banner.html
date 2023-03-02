@@ -1,0 +1,58 @@
+<!-- Topbar -->
+<div class="header-topbar">
+  {% if g.user %}
+    <div class="dropdown">
+    <button class="btn btn-secondary float-right dropdown-toggle" type="button" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user-circle fa-lg"></i>
+    </button>
+      <div class="dropdown-menu" aria-labelledby="profile">
+         <a class="dropdown-item" href="/profile">Profile</a>
+         <a class="dropdown-item" href="/auth/logout">Log out</a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+
+<!-- banner with navigation -->
+<div class="banner shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <button id="custom-toggler" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{{url_for('index')}}">
+            <img src="https://www.concours-mines-telecom.fr/wp-content/uploads/2022/04/IMT_MinesAlbi_Logo.png?fbclid=IwAR0Qv7CCub2s9v5WuzqTm6MCmzKq2i1LZXDN0aM1vXJx_zm1sm-hGfSepTs"
+            alt="Logo IMT MINES ALBI" 
+            class="img-fluid" 
+            width="120">
+        </a>
+        {% if g.user %}
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+                <li class="nav-item">
+                    <a class="nav-link text-dark nav-btn" id="home" href="{{url_for('index')}}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark nav-btn" id="session" href="{{url_for('session.session_list')}}">
+                        Sessions
+                    </a>
+                </li>
+                {% if g.user.admin %}
+                <li class="nav-item">
+                    <a class="nav-link text-dark nav-btn" id="admin" href="{{url_for('data.update')}}">
+                        Data Update
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark nav-btn" id="admin_panel" href="{{url_for('admin.admin_panel')}}">
+                        Admin Panel
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+    </nav>
+</div>

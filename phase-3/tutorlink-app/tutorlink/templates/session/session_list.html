@@ -1,0 +1,133 @@
+{% from "session/session_cards.html" import session_cards, session_cards_scripts with context %}
+{% extends 'base.html' %}
+{% block title %}Session{% endblock %}
+
+{% block content %}
+
+<h1 class="m-4">Session list</h1>
+<div class="row my-5 px-4">
+    <div class="col col-12 bg-white shadow-sm rounded mx-auto p-3 p-sm-4 p-md-5">
+        <h3 class="m-2">Filters</h3>
+        <form action="" method="get">
+            <div class="row">
+                <div class="form-group col col-12 col-md-4">
+                    <label for="module">Module</label>
+                    <select class="form-control selectpicker" name="module" id="module" multiple data-live-search="true" data-actions-box="true" data-container="body">
+                        {% for module in modules %}
+                            <option value="{{module.id}}" data-tokens="{{module.label}} {{module.name}}" title="{{module.label}}" {% if module.id in selected_modules %}selected{% endif %}>
+                                {{module.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br />
+                <div class="form-group col col-12 col-md-4">
+                    <label for="ue">UE</label>
+                    <select class="form-control selectpicker" name="ue" id="ue" multiple data-live-search="true" data-actions-box="true" data-container="body">
+                        {% for ue in ues %}
+                            <option value="{{ue.id}}" data-tokens="{{ue.label}} {{ue.name}}" title="{{ue.label}}" {% if ue.id in selected_ues %}selected{% endif %}>
+                                {{ue.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br />
+                <div class="form-group col col-12 col-md-4">
+                    <label for="type">Type</label>
+                    <select class="form-control selectpicker" name="type" id="type" multiple multiple data-live-search="true" data-actions-box="true" data-container="body">
+                        {% for type in session_types %}
+                            <option value="{{type.id}}" data-tokens="{{type.id}} {{type.name}}" data-subtext="{{type.id}}" title="{{type.id}}" {% if type.id in selected_types %}selected{% endif %}>
+                                {{type.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col col-12 col-sm-6">
+                    <label for="date_min">Date min</label>
+                    <input class="form-control" type="date" id="date_min" name="date_min" value="{{selected_date_min}}">
+                </div>
+                <br />
+                <div class="form-group col col-12 col-sm-6">
+                    <label for="date_max">Date max</label>
+                    <input class="form-control" type="date" id="date_max" name="date_max" value="{{selected_date_max}}">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col col-12">
+                    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row my-5 px-1 px-sm-4 px-xl-5">
+    <div class="col col-12 mx-auto p-1 p-sm-3">
+        <h3 class="m-2">Sessions</h3>
+
+        {{ session_cards(sessions) }}
+
+        <div class="row">
+            <div class="col col-12 mx-auto">
+                <form action="" method="get">
+                    {% for key, values in request.args.to_dict(flat=False).items() %}
+                        {% if key != 'page' %}
+                            {% for value in values %}
+                                <input type="hidden" name="{{key}}" value="{{value}}" />
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if current_page == 1 %}
+                                <li class="page-item disabled">
+                                    <button class="page-link" name="page" value="1" type="submit" aria-label="Previous" disabled>
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </button>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <button class="page-link" name="page" value="{{current_page - 1}}" type="submit" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </button>
+                                </li>
+                            {% endif %}
+
+                            {% for page in pages %}
+                                {% if page==none %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item {% if page==current_page %}active{% endif %}">
+                                        <input class="page-link" name="page" value="{{page}}" type="submit" {% if page==current_page %}disabled{% endif %}/>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if current_page == pages[-1] %}
+                                <li class="page-item disabled">
+    
+                                    <button class="page-link" name="page" value="{{current_page}}" type="submit" aria-label="Next" disabled>
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </button>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <button class="page-link" name="page" value="{{current_page + 1}}" type="submit" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </button>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ session_cards_scripts() }}
+{% endblock %}

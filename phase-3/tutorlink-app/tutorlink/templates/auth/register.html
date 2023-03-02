@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="pt-5">
+  <div class="modal modal-signin position-static d-block" tabindex="0" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content shadow-sm">
+        <div class="modal-header p-5 pb-0 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-2">Register</h1>
+        </div>
+  
+        <div class="modal-body pb-5 px-5 pt-0">  
+          <div class="form-floating mb-3">
+            <label for="floatingInput">Name</label>
+            <input type="Name" class="form-control rounded-3" id="name" name="name" placeholder="Jean" {% if g.user.name %}value="{{g.user.name}}"{% endif %}>
+          </div>
+
+          <div class="form-floating mb-3">
+            <label for="floatingInput">Surname</label>
+            <input type="Surname" class="form-control rounded-3" id="surname" name="surname" placeholder="Dujardin"{% if g.user.surname %}value="{{g.user.surname}}"{% endif %}>
+          </div>
+
+          <div class="form-floating mb-3">
+            <label for="floatingInput">E-mail adress</label>
+            <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="name@example.com"{% if g.user.email %}value="{{g.user.email}}"{% endif %}>
+          </div>
+
+          <div class="form-floating mb-3">
+            <label for="floatingInput">Role</label>
+            <select class="form-control rounded-3" aria-label="Role" name="role" id="role" required>
+              <option value="" selected disabled hidden>Select your role</option>
+              <!-- <select name="role" id="role" required class="form-input"> -->
+                {% for role in roles %}
+                  <option value="{{role.id}}" {% if g.user.role_id==role.id %}selected{% endif %}>{{role.name}}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <hr class="my-4">
+          <div>
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}

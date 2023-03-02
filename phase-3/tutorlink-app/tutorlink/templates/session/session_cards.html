@@ -1,0 +1,150 @@
+{% macro session_cards(sessions) %}
+<div class="row mx-auto">
+    {% if sessions %}
+        <form action="{{url_for('session.session_register')}}" method="POST" id="register_form"></form>
+        <form action="{{url_for('session.session_unregister')}}" method="POST" id="unregister_form"></form>
+        {% for session in sessions %}
+            <div class="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="card home-card mx-auto my-3 shadow-sm">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col col-10">
+                                <h5 data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="{{session.module.name}}">
+                                    {{session.module.label}}
+                                </h5>
+                            </div>
+                            <div class="col col-2 align-self-center">
+                                {% if session in g.user.lectured_sessions %}
+                                    <a href=""
+                                        class="float-right"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Unregister for this session"
+                                        onclick="submit_form(id={{session.id}}, type='unregister'); return false;">
+                                        <i class="fa-solid fa-xmark text-danger"></i>
+                                    </a>
+                                {% else %}
+                                    <a href=""
+                                        class="float-right"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="Register for this session"
+                                        onclick="submit_form(id={{session.id}}, type='register'); return false;">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            &nbsp;
+                            {{session.date_start.strftime("%A %d %B %Y")}}
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-clock"></i>
+                            &nbsp;
+                            {{session.date_start.strftime("%Hh%M")}} - {{session.date_end.strftime("%Hh%M")}}
+                        </p>
+                        {% if session.salle %}
+                        <p>
+                            <span class="one-line" data-toggle="tooltip" data-placement="bottom" title="{{session.salle}}" tooltip_title="{{session.salle}}">
+                                <i class="fa-solid fa-location-dot"></i>
+                                &nbsp;
+                                {{session.salle}}
+                            </span>
+                        </p>
+                        {% endif %}
+                        {% if session.group_name %}
+                            <p>
+                                <span class="one-line" data-toggle="tooltip" data-placement="bottom" title="{{session.group_name}}" tooltip_title="{{session.group_name}}">
+                                    <i class="fa-solid fa-user-group"></i>
+                                    &nbsp;
+                                    {{session.group_name}}
+                                </span>
+                            </p>
+                        {% endif %}
+                        {% if session.ue %}
+                            <p>
+                                <span data-toggle="tooltip" data-placement="bottom" title="{{session.ue.name}}">
+                                    <i class="fa-regular fa-u"></i>
+                                    &nbsp;
+                                    {{session.ue.label}}
+                                </span>
+                            </p>
+                        {% endif %}
+                        {% if session.session_type %}
+                            <p>
+                                <span class="one-line" data-toggle="tooltip" data-placement="bottom" title="{{session.session_type.id}}" tooltip_title="{{session.session_type.id}}">
+                                    <i class="fa-solid fa-book"></i>
+                                    &nbsp;
+                                    {{session.session_type.name}}
+                                </span>
+                            </p>
+                        {% endif %}
+                    </div>
+                    {% if session.lectured_by_users %}
+                        <div class="card-footer bg-transparent">
+                            {% for user in session.lectured_by_users %}
+                                <span class="badge badge-pill badge-primary">
+                                    <i class="fa-solid fa-user"></i>
+                                    &nbsp;
+                                    {{user.name}} {{user.surname}}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h5 class="text-muted">Aucun cours à venir.</h5>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro session_cards_scripts() %}
+<script>
+    function submit_form(id, type)
+    {
+        if (type == 'register') {
+            form = document.getElementById("register_form");
+        } else if (type == 'unregister') {
+            form = document.getElementById("unregister_form");
+        }
+        hiddenField = document.createElement("input");
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'session_id';
+        hiddenField.value = id;
+        form.appendChild(hiddenField);
+        form.submit();
+    }
+</script>
+<script>
+    const isTextClamped = elm => elm.scrollHeight > elm.clientHeight;
+
+    const toggle_tooltip = function() {
+        var lines = document.querySelectorAll(".one-line");
+        for (var i = 0; i < lines.length; i++) {
+            if (isTextClamped(lines[i])) {
+                lines[i].setAttribute("data-toggle", "tooltip");
+                lines[i].setAttribute("data-placement", "bottom");
+                lines[i].removeAttribute("title");
+                lines[i].setAttribute("data-original-title", lines[i].getAttribute("tooltip_title"));
+
+            } else {
+                lines[i].removeAttribute("data-toggle");
+                lines[i].removeAttribute("data-placement");
+                lines[i].removeAttribute("title");
+                lines[i].removeAttribute("data-original-title");
+            };
+        };
+    };
+
+    window.onresize = toggle_tooltip;
+    window.onload = toggle_tooltip;
+</script>
+{% endmacro %}

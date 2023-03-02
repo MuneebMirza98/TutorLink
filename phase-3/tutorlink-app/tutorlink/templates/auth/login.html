@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-9 col-lg-6 rounded bg-white mt-5 mb-5 shadow-sm p-5">
+            <p>Please login to use the app.</p>
+            <br />
+            <form action="{{url_for('cas.login')}}" method="get">
+                <button type="submit" class="btn btn-primary">Login with CAS</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

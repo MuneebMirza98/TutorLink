@@ -1,0 +1,35 @@
+1 Contexte et périmètre du projet
+
+2 Système existant et objectifs du projet
+
+3 Caractéristiques fonctionnelles du futur système
+
+3.1 Glossaire "métier"
+
+3.2 Les données "métier" manipulées par le système cible
+      
+3.3 Acteurs du système cible
+    
+3.4 Scénarios d'utilisation du système cible
+
+3.5 Listes de fonctions du système cible
+
+3.6 Les règles de gestion (pour garantir la cohérence du système).
+    
+4 Caractéristiques non fonctionnelles du futur système
+
+4.1 Contraintes d'exploitation
+    
+4.2 Contraintes d'organisation
+   
+4.3 Contraintes de développement
+    
+4.4 Délais de réalisation
+    
+4.5 Garantie contre les vices de fabrication
+    
+5 Conditions de recette du projet - Installation et Livraison
+
+6 Garanties et pénalités applicables - Aspects Juridiques
+
+7 Points ouverts (facultatif)

@@ -1,0 +1,72 @@
+{% from "session/session_cards.html" import session_cards, session_cards_scripts with context %}
+{% extends 'base.html' %}
+{% block title %}Tutorlink - Acceuil{% endblock %}
+
+{% block content %}
+    
+    <div class="row m-4">
+        <aside class="col col-10 order-1 col-xl-3 order-xl-2 mx-auto mx-xl-0" style="overflow: hidden">
+            <div class="row">
+                <div class="col col-12 shadow-sm bg-white rounded">
+                    <div class="card-body">
+                        <h3>Number of hours</h3>
+                        {% if g.user.role_id == 1 %}
+                            <div class="circular-progress m-4" style="--size: 200px;">
+                                <span class="progress-value">0/64</span>
+                            </div>
+                        {% else %}
+                            <h1>{{total_duration}}/∞</h1>
+                        {% endif %}
+                        
+                    </div>
+                    
+                    <script>
+                        let circularProgress = document.querySelector(".circular-progress"),
+                            progressValue = document.querySelector(".progress-value");
+                    
+                        let progressStartValue = 0,
+                            progressEndValue = {{total_duration}}/64*100,
+                            speed = 3;
+                            
+                        let progress = setInterval(() => {
+                            if(progressEndValue == 0){
+                                clearInterval(progress);
+                                progressStartValue--;
+                            }
+                            progressStartValue++;
+                            if (progressStartValue < 75) {
+                                circularProgress.style.background = `conic-gradient(green ${(progressStartValue - 5) * 3.6}deg, #ededed 0deg)`;
+                                progressValue.style.color = "green";
+                            } else if (progressStartValue < 95) {
+                                circularProgress.style.background = `conic-gradient(green ${70 * 3.6}deg, orange ${progressStartValue * 3.6}deg, #ededed 0deg)`;
+                                progressValue.style.color = "orange";
+                            } else {
+                                circularProgress.style.background = `conic-gradient(green ${75 * 3.6}deg, orange ${90 * 3.6}deg, red ${progressStartValue * 3.6}deg, #ededed 0deg)`;
+                                progressValue.style.color = "red";
+                            }
+                            progressValue.textContent = `${Math.min(progressStartValue, {{total_duration}})}/64`
+                            
+                        
+                            if(progressStartValue >= progressEndValue){
+                                clearInterval(progress);
+                            }
+                        }, speed);
+                    </script>
+                </div>
+            </div>
+        </aside>
+        <div class="col col-12 order-2 col-xl-9 order-xl-1">
+            <h1 class="my-3">Urgent lessons :</h1>
+
+            {{ session_cards(urgent_sessions) }}
+
+        </div>
+        <div class="col col-12 order-3 col-xl-9">
+            <h1 class="my-3">Next lessons :</h1>
+
+            {{ session_cards(user_next_sessions) }}
+
+        </div>
+    </div>
+    {{ session_cards_scripts() }}
+{% endblock %}

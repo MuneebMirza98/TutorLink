@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Data update{% endblock %}
+
+{% block content %}
+<div class="row mt-5 mx-2">
+    <div class="col-12 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto rounded bg-white shadow-sm p-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            <h4>Update:</h4>
+            <div class="form-group">
+                <label for="file">Choose a JSON file:</label>
+                <input type="file" id="file" name="file" accept=".json" class="form-control-file">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

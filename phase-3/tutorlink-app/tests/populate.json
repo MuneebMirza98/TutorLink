@@ -1,0 +1,53 @@
+[
+    {
+		"id" : 1,
+		"ue" : "UE-IFIE3-GIPSI-S-OMng",
+		"intitule_ue" : "Socle GIPSI : outils pour le management des organisations",
+		"module" : "MOD-IFIE3-G-S-ProjAgil-C1",
+		"intitule_module" : "Management agile de projets",
+		"intervenants" : [{"FERTIER Audrey":"afertier"}, {"LE DUFF Clara":"cleduff"}],
+		"groupes" : "IFIE3-GIPSI-GI2, IFIE3-GIPSI-GSI2",
+		"categorie_pers" : "DOC, PERS",
+		"type_synapses" : "TD",
+		"libelle" : "Travaux Dirigés",
+		"date" : "2022-09-27",
+		"salles" : ["0F05-zoom","51-140 pers - 0F05"],
+		"heuredeb" : "09:45:00",
+		"heurefin" : "11:15:00",
+		"duree" : 1.5
+	},
+    {
+		"id" : 2,
+		"ue" : "UE-IFIE3-GIPSI-S-OMng",
+		"intitule_ue" : "Socle GIPSI : outils pour le management des organisations",
+		"module" : "MOD-IFIE3-G-S-ProjAgil-C1",
+		"intitule_module" : "Management agile de projets",
+		"intervenants" : [{"FERTIER Audrey":"afertier"}, {"LE DUFF Clara":"cleduff"}],
+		"groupes" : "IFIE3-GIPSI-GI2, IFIE3-GIPSI-GSI2",
+		"categorie_pers" : "DOC, PERS",
+		"type_synapses" : "TD",
+		"libelle" : "Travaux Dirigés",
+		"date" : "2022-09-27",
+		"salles" : ["0F05-zoom","51-140 pers - 0F05"],
+		"heuredeb" : "11:30:00",
+		"heurefin" : "13:00:00",
+		"duree" : 1.5
+	},
+	{
+		"id" : 3,
+		"ue" : "UE-IFIE3-GIPSI-GSI-ASD",
+		"intitule_ue" : "GSI : Application Spécification et développement (ASIDE)",
+		"module" : "MOD-IFIE3-G-GSI-ASCII-C1",
+		"intitule_module" : "Application Specifications (ASCII)",
+		"intervenants" : [{"BENABEN Frederick":"benaben"}],
+		"groupes" : "IFIE3-GIPSI-GSI",
+		"categorie_pers" : "PERS",
+		"type_synapses" : "CM",
+		"libelle" : "Cours Magistraux",
+		"date" : "2022-09-14",
+		"salles" : ["1A23-zoom","30-50 pers - 1A23"],
+		"heuredeb" : "08:00:00",
+		"heurefin" : "09:30:00",
+		"duree" : 1.5
+	}
+]
